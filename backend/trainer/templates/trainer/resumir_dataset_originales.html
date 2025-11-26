@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Resumir datasets originales</title>
+</head>
+<body>
+    <h1>Resumir datasets originales (limpieza inicial)</h1>
+    <p>
+        Sube uno o varios archivos <strong>.csv</strong> o <strong>.xlsx</strong>
+        con las columnas <code>Materia</code>, <code>Sec</code>, <code>CUP</code>
+        y <code>DIS</code>. Se aplicará la lógica de resumen y se descargará
+        un ZIP con los archivos resumidos.
+    </p>
+
+    {% if error %}
+        <div style="color: red;">
+            <strong>{{ error }}</strong>
+        </div>
+    {% endif %}
+
+    <form
+        method="post"
+        enctype="multipart/form-data"
+        action="{% url 'trainer:resumir_datasets_originales' %}"
+    >
+        {% csrf_token %}
+
+        <!-- El form MultiCSVUploadForm no tiene campos, así que solo ponemos el input a mano -->
+        <p>
+            <label for="id_files">Archivos:</label><br />
+            <input
+                type="file"
+                id="id_files"
+                name="files"
+                multiple
+                accept=".csv,.xlsx,.xls"
+            />
+        </p>
+
+        <button type="submit">Generar resúmenes y descargar ZIP</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <p>
+        
+        <label for="id_resumidos">Archivos resumidos:</label><br>
+        <input type="file" name="resumidos" id="id_resumidos" multiple accept=".csv,.xlsx,.xls">
+    </p>
+
+    <button type="submit">Unificar y descargar CSV</button>
+</form>

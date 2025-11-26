@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Combinar oferta y preregistro</title>
+</head>
+<body>
+    <h1>Combinar oferta unificada con preregistro + imputar promedios</h1>
+
+    <p>
+        Paso 1: Subir el archivo <strong>oferta_academica_unificada.csv</strong>
+        (generado en <code>/unir-datasets-resumidos/</code>).
+    </p>
+    <p>
+        Paso 2: Subir uno o varios archivos de preregistro
+        (<code>2018B_preregistro_filtrado.xlsx</code>, <code>2019A_preregistro_filtrado.xlsx</code>, etc.).
+    </p>
+    <p>
+        La app combinará todo, calculará promedios por <em>Materia + calendario (A/B)</em>
+        y descargará un ZIP con:
+    </p>
+    <ul>
+        <li><code>oferta_con_preregistro.csv</code></li>
+        <li><code>preregistro_unificado_consolidado.csv</code></li>
+        <li><code>oferta_con_preregistro_imputada.csv</code> (archivo final)</li>
+    </ul>
+
+    {% if error %}
+        <div style="color: red;">
+            <strong>Error:</strong> {{ error }}
+        </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <p>
+            <label for="id_oferta">Oferta unificada (CSV):</label><br />
+            <input
+                type="file"
+                name="oferta"
+                id="id_oferta"
+                accept=".csv"
+                required
+            />
+        </p>
+
+        <p>
+            <label for="id_preregistros">Archivos de preregistro:</label><br />
+            <input
+                type="file"
+                name="preregistros"
+                id="id_preregistros"
+                multiple
+                accept=".csv,.xlsx,.xls"
+                required
+            />
+        </p>
+
+        <button type="submit">Combinar e imputar y descargar ZIP</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel LSTM App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 450px;
+        }
+
+        a.button {
+            display: block;
+            padding: 15px;
+            background: #0078ff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        a.button:hover {
+            background: #005fcc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Panel Principal — Procesamiento LSTM</h1>
+    <div class="container">
+
+        <a class="button" href="{% url 'trainer:resumir_datasets_originales' %}">
+            Resumir datasets originales
+        </a>
+
+        <a class="button" href="{% url 'trainer:unir_datasets_resumidos' %}">
+            Unir datasets resumidos
+        </a>
+
+        <a class="button" href="{% url 'trainer:combinar_preregistro' %}">
+            Combinar oferta + preregistro (con imputación)
+        </a>
+
+        <a class="button" href="{% url 'trainer:upload_and_train' %}">
+            Entrenamiento LSTM
+        </a>
+
+    </div>
+</body>
+</html>

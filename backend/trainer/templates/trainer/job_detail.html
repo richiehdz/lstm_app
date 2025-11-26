@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Job</title>
+</head>
+<body>
+    <h1>Job {{ job.id }}</h1>
+    <p><strong>Estado:</strong> {{ job.status }}</p>
+    <p><strong>Progreso:</strong> {{ job.progress }} %</p>
+    <p><strong>Loss final:</strong> {{ job.loss_final }}</p>
+    <p><strong>Creado:</strong> {{ job.created_at }}</p>
+    <p><strong>Inicio:</strong> {{ job.started_at }}</p>
+    <p><strong>Fin:</strong> {{ job.finished_at }}</p>
+
+    <p><a href="{% url 'trainer:upload_and_train' %}">Volver a subir otro dataset</a></p>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Subir dataset y entrenar</title>
+</head>
+<body>
+    <h1>Subir dataset CSV y lanzar entrenamiento LSTM (dummy)</h1>
+
+    {% if form.errors %}
+        <div style="color: red;">
+            <h3>Errores en el formulario:</h3>
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    <li><strong>{{ field }}:</strong> {{ errors }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Entrenar</button>
+    </form>
+</body>
+</html>

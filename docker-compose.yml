@@ -1,0 +1,47 @@
+services:
+  web:
+    build: ./backend
+    container_name: lstm_web
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.dev
+    depends_on:
+      - db
+      - redis
+
+  worker:
+    build: ./backend
+    container_name: lstm_worker
+    command: celery -A config worker -l info
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env.dev
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:16-alpine
+    container_name: lstm_db
+    environment:
+      POSTGRES_DB: lstm_db
+      POSTGRES_USER: lstm_user
+      POSTGRES_PASSWORD: lstm_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis:7-alpine
+    container_name: lstm_redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
