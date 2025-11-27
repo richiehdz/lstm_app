@@ -12,3 +12,6 @@ pandas==2.2.3
 
 # (Más adelante agregamos PyTorch / TensorFlow, para que el build inicial no pese 20GB)
 openpyxl==3.1.5
+tensorflow==2.20.0
+tensorflow-cpu==2.20.0
+scikit-learn==1.5.2

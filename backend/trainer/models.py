@@ -25,7 +25,7 @@ class TrainingJob(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE, related_name="jobs")
-
+    output_path = models.CharField(max_length=255, null=True, blank=True)
     status = models.CharField(
         max_length=20,
         choices=Status.choices,

@@ -16,3 +16,14 @@ class UploadDatasetForm(forms.Form):
 class MultiCSVUploadForm(forms.Form):
     # No definimos FileField aquí, los archivos los leeremos desde request.FILES
     pass
+
+
+class CompararPrediccionesForm(forms.Form):
+    predicciones_file = forms.FileField(
+        label="Archivo de predicciones (CSV)",
+        help_text="Por ejemplo: job_xxx_predicciones.csv"
+    )
+    reales_file = forms.FileField(
+        label="Archivo de datos reales (CSV)",
+        help_text="Calendario futuro con valores reales"
+    )

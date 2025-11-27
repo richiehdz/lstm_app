@@ -1,63 +1,233 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8" />
     <title>Combinar oferta y preregistro</title>
+
+    <style>
+        body {
+            font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #F4F6F9;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .panel {
+            background: #FFFFFF;
+            padding: 35px 40px;
+            margin-top: 60px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.06);
+            width: 100%;
+            max-width: 750px;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #15202B;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        p.description {
+            margin-top: 0;
+            margin-bottom: 18px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #4A5568;
+        }
+
+        .steps {
+            margin-bottom: 15px;
+            padding-left: 18px;
+        }
+
+        .steps p {
+            margin: 4px 0;
+            font-size: 14px;
+            color: #4A5568;
+        }
+
+        ul.files-list {
+            margin-top: 8px;
+            margin-bottom: 20px;
+            padding-left: 18px;
+            font-size: 13px;
+            color: #4A5568;
+        }
+
+        code {
+            background: #EDF2F7;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 14px;
+            background: #1A73E8;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background 0.25s, transform 0.15s;
+            box-shadow: 0px 3px 7px rgba(0,0,0,0.08);
+        }
+
+        .back-btn:hover {
+            background: #1558B0;
+            transform: translateY(-2px);
+        }
+
+        .back-btn:active {
+            transform: translateY(0);
+        }
+
+        .alert-error {
+            background: #FEE2E2;
+            border: 1px solid #FCA5A5;
+            color: #B91C1C;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 6px;
+            color: #1A202C;
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background: #F7FAFC;
+            border-radius: 8px;
+            border: 1px solid #CBD5E0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #1A73E8;
+            box-shadow: 0 0 0 1px rgba(26,115,232,0.35);
+        }
+
+        button[type="submit"] {
+            margin-top: 10px;
+            padding: 12px 18px;
+            background: #1A73E8;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0px 3px 7px rgba(0,0,0,0.08);
+            transition: background 0.25s, transform 0.15s;
+        }
+
+        button[type="submit"]:hover {
+            background: #1558B0;
+            transform: translateY(-1px);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.08);
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Combinar oferta unificada con preregistro + imputar promedios</h1>
+    <div class="panel">
 
-    <p>
-        Paso 1: Subir el archivo <strong>oferta_academica_unificada.csv</strong>
-        (generado en <code>/unir-datasets-resumidos/</code>).
-    </p>
-    <p>
-        Paso 2: Subir uno o varios archivos de preregistro
-        (<code>2018B_preregistro_filtrado.xlsx</code>, <code>2019A_preregistro_filtrado.xlsx</code>, etc.).
-    </p>
-    <p>
-        La app combinará todo, calculará promedios por <em>Materia + calendario (A/B)</em>
-        y descargará un ZIP con:
-    </p>
-    <ul>
-        <li><code>oferta_con_preregistro.csv</code></li>
-        <li><code>preregistro_unificado_consolidado.csv</code></li>
-        <li><code>oferta_con_preregistro_imputada.csv</code> (archivo final)</li>
-    </ul>
+        <a class="back-btn" href="{% url 'trainer:home' %}">
+            ← Volver al inicio
+        </a>
 
-    {% if error %}
-        <div style="color: red;">
-            <strong>Error:</strong> {{ error }}
+        <h1>Combinar oferta unificada con preregistro + imputar promedios</h1>
+
+        <div class="steps">
+            <p>
+                <strong>Paso 1:</strong> Sube el archivo
+                <strong>oferta_academica_unificada.csv</strong>
+                (generado en <code>/unir-datasets-resumidos/</code>).
+            </p>
+            <p>
+                <strong>Paso 2:</strong> Sube uno o varios archivos de preregistro,
+                por ejemplo <code>2018B_preregistro_filtrado.xlsx</code>,
+                <code>2019A_preregistro_filtrado.xlsx</code>, etc.
+            </p>
         </div>
-    {% endif %}
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-
-        <p>
-            <label for="id_oferta">Oferta unificada (CSV):</label><br />
-            <input
-                type="file"
-                name="oferta"
-                id="id_oferta"
-                accept=".csv"
-                required
-            />
+        <p class="description">
+            La app combinará todo, calculará promedios por
+            <em>Materia + calendario (A/B)</em> y descargará un ZIP con:
         </p>
 
-        <p>
-            <label for="id_preregistros">Archivos de preregistro:</label><br />
-            <input
-                type="file"
-                name="preregistros"
-                id="id_preregistros"
-                multiple
-                accept=".csv,.xlsx,.xls"
-                required
-            />
-        </p>
+        <ul class="files-list">
+            <li><code>oferta_con_preregistro.csv</code></li>
+            <li><code>preregistro_unificado_consolidado.csv</code></li>
+            <li><code>oferta_con_preregistro_imputada.csv</code> (archivo final)</li>
+        </ul>
 
-        <button type="submit">Combinar e imputar y descargar ZIP</button>
-    </form>
+        {% if error %}
+            <div class="alert-error">
+                <strong>Error:</strong> {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_oferta">Oferta unificada (CSV)</label>
+                <input
+                    type="file"
+                    name="oferta"
+                    id="id_oferta"
+                    accept=".csv"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="id_preregistros">Archivos de preregistro</label>
+                <input
+                    type="file"
+                    name="preregistros"
+                    id="id_preregistros"
+                    multiple
+                    accept=".csv,.xlsx,.xls"
+                    required
+                />
+            </div>
+
+            <button type="submit">Combinar, imputar y descargar ZIP</button>
+        </form>
+
+    </div>
 </body>
 </html>

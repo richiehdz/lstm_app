@@ -3,61 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <title>Panel LSTM App</title>
+
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background: #f5f5f5;
+            font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #F4F6F9;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .panel {
+            background: white;
+            padding: 40px 50px;
+            margin-top: 60px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.06);
+            width: 100%;
+            max-width: 550px;
         }
 
         h1 {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            color: #15202B;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        p.subtitle {
+            margin-top: -10px;
+            margin-bottom: 30px;
+            font-size: 15px;
+            color: #4A5568;
+            text-align: center;
         }
 
         .container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            max-width: 450px;
+            gap: 18px;
         }
 
         a.button {
             display: block;
-            padding: 15px;
-            background: #0078ff;
+            padding: 16px;
+            background: #1A73E8;
             color: white;
             text-align: center;
             text-decoration: none;
             font-size: 16px;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: 0.2s;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: background 0.25s, transform 0.15s;
+            box-shadow: 0px 3px 7px rgba(0,0,0,0.08);
         }
 
         a.button:hover {
-            background: #005fcc;
+            background: #1558B0;
+            transform: translateY(-2px);
         }
     </style>
 </head>
+
 <body>
-    <h1>Panel Principal — Procesamiento LSTM</h1>
-    <div class="container">
+    <div class="panel">
 
-        <a class="button" href="{% url 'trainer:resumir_datasets_originales' %}">
-            Resumir datasets originales
-        </a>
+        <h1>Panel Principal — Procesamiento LSTM</h1>
+        <p class="subtitle">Selecciona una operación para continuar</p>
 
-        <a class="button" href="{% url 'trainer:unir_datasets_resumidos' %}">
-            Unir datasets resumidos
-        </a>
+        <div class="container">
 
-        <a class="button" href="{% url 'trainer:combinar_preregistro' %}">
-            Combinar oferta + preregistro (con imputación)
-        </a>
+            <a class="button" href="{% url 'trainer:resumir_datasets_originales' %}">
+                Resumir datasets originales
+            </a>
 
-        <a class="button" href="{% url 'trainer:upload_and_train' %}">
-            Entrenamiento LSTM
-        </a>
+            <a class="button" href="{% url 'trainer:unir_datasets_resumidos' %}">
+                Unir datasets resumidos
+            </a>
+
+            <a class="button" href="{% url 'trainer:combinar_preregistro' %}">
+                Combinar oferta + preregistro (con imputación)
+            </a>
+
+            <a class="button" href="{% url 'trainer:upload_and_train' %}">
+                Entrenamiento LSTM
+            </a>
+
+            <a class="button" href="{% url 'trainer:comparar_predicciones' %}">
+                Comparar predicción vs reales
+            </a>
+
+        </div>
 
     </div>
 </body>

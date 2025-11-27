@@ -1,11 +1,150 @@
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    
-    <p>
-        
-        <label for="id_resumidos">Archivos resumidos:</label><br>
-        <input type="file" name="resumidos" id="id_resumidos" multiple accept=".csv,.xlsx,.xls">
-    </p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Unir datasets resumidos</title>
 
-    <button type="submit">Unificar y descargar CSV</button>
-</form>
+    <style>
+        body {
+            font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #F4F6F9;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .panel {
+            background: #FFFFFF;
+            padding: 35px 40px;
+            margin-top: 60px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.06);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #15202B;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        p.description {
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #4A5568;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 14px;
+            background: #1A73E8;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background 0.25s, transform 0.15s;
+            box-shadow: 0px 3px 7px rgba(0,0,0,0.08);
+        }
+
+        .back-btn:hover {
+            background: #1558B0;
+            transform: translateY(-2px);
+        }
+
+        .back-btn:active {
+            transform: translateY(0);
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 6px;
+            color: #1A202C;
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background: #F7FAFC;
+            border-radius: 8px;
+            border: 1px solid #CBD5E0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #1A73E8;
+            box-shadow: 0 0 0 1px rgba(26,115,232,0.35);
+        }
+
+        button[type="submit"] {
+            margin-top: 15px;
+            padding: 12px 18px;
+            background: #1A73E8;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0px 3px 7px rgba(0,0,0,0.08);
+            transition: background 0.25s, transform 0.15s;
+        }
+
+        button[type="submit"]:hover {
+            background: #1558B0;
+            transform: translateY(-1px);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="panel">
+
+        <a class="back-btn" href="{% url 'trainer:home' %}">
+            ← Volver al inicio
+        </a>
+
+        <h1>Unir datasets resumidos</h1>
+
+        <p class="description">
+            Sube varios archivos <strong>.csv/.xlsx</strong> que ya hayan sido 
+            previamente resumidos.  
+            El sistema unificará toda la información en un solo CSV consolidado.
+        </p>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label for="id_resumidos">Archivos resumidos</label>
+            <input
+                type="file"
+                name="resumidos"
+                id="id_resumidos"
+                multiple
+                accept=".csv,.xlsx,.xls"
+            />
+
+            <button type="submit">Unificar y descargar CSV</button>
+        </form>
+
+    </div>
+</body>
+</html>

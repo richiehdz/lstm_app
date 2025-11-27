@@ -22,4 +22,24 @@ urlpatterns = [
         views.combinar_oferta_y_preregistro_view,
         name="combinar_preregistro",
     ),
+        path(
+        "training-jobs/<uuid:pk>/",
+        views.TrainingJobDetailView.as_view(),
+        name="trainingjob-detail",
+    ),
+    path(
+        "training-jobs/<uuid:pk>/download/",
+        views.TrainingJobDownloadView.as_view(),
+        name="trainingjob-download",
+    ),
+    path(
+        "comparar-predicciones/",
+        views.comparar_predicciones_view,
+        name="comparar_predicciones",
+    ),
+    path(
+        "comparar-predicciones/descargar/",
+        views.descargar_comparacion_csv,
+        name="descargar_comparacion_csv",
+    ),
 ]

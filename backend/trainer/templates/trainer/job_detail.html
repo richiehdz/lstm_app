@@ -3,16 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalle del Job</title>
-</head>
-<body>
-    <h1>Job {{ job.id }}</h1>
-    <p><strong>Estado:</strong> {{ job.status }}</p>
-    <p><strong>Progreso:</strong> {{ job.progress }} %</p>
-    <p><strong>Loss final:</strong> {{ job.loss_final }}</p>
-    <p><strong>Creado:</strong> {{ job.created_at }}</p>
-    <p><strong>Inicio:</strong> {{ job.started_at }}</p>
-    <p><strong>Fin:</strong> {{ job.finished_at }}</p>
 
-    <p><a href="{% url 'trainer:upload_and_train' %}">Volver a subir otro dataset</a></p>
+    <style>
+        body {
+            font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #F4F6F9;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .panel {
+            background: #FFFFFF;
+            padding: 35px 40px;
+            margin-top: 60px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.06);
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 14px;
+            background: #1A73E8;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background 0.25s, transform 0.15s;
+            box-shadow: 0px 3px 7px rgba(0,0,0,0.08);
+        }
+
+        .back-btn:hover {
+            background: #1558B0;
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            color: #15202B;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .details {
+            margin-top: 10px;
+            margin-bottom: 25px;
+            padding: 18px 20px;
+            background: #F9FAFB;
+            border-radius: 10px;
+            border: 1px solid #E1E8F0;
+        }
+
+        .details p {
+            margin: 6px 0;
+            font-size: 14px;
+            color: #2D3748;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 10px 16px;
+            background: #16A34A;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0px 3px 7px rgba(0,0,0,0.08);
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .download-btn:hover {
+            background: #15803D;
+            transform: translateY(-1px);
+        }
+
+        .muted {
+            color: #6B7280;
+            font-style: italic;
+        }
+
+        .secondary-link {
+            display: inline-block;
+            margin-top: 18px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A73E8;
+            text-decoration: none;
+        }
+
+        .secondary-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="panel">
+
+        <a class="back-btn" href="{% url 'trainer:home' %}">
+            ← Volver al inicio
+        </a>
+
+        <h1>Job {{ job.id }}</h1>
+
+        <div class="details">
+            <p><strong>Estado:</strong> {{ job.status }}</p>
+            <p><strong>Progreso:</strong> {{ job.progress }}%</p>
+            <p><strong>Loss final:</strong> {{ job.loss_final }}</p>
+            <p><strong>Creado:</strong> {{ job.created_at }}</p>
+            <p><strong>Inicio:</strong> {{ job.started_at }}</p>
+            <p><strong>Fin:</strong> {{ job.finished_at }}</p>
+        </div>
+
+        {% if job.output_path %}
+            <a class="download-btn" href="/training-jobs/{{ job.id }}/download/">
+                Descargar predicciones (CSV)
+            </a>
+        {% else %}
+            <p class="muted">El archivo de predicciones aún no está listo.</p>
+        {% endif %}
+
+        <p>
+            <a class="secondary-link" href="{% url 'trainer:upload_and_train' %}">
+                ← Entrenar otro modelo
+            </a>
+        </p>
+
+    </div>
 </body>
 </html>
